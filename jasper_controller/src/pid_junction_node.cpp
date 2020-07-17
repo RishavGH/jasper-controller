@@ -13,7 +13,7 @@ PID_Junction::PID_Junction(const ros::Publisher& pub_input) : pub(pub_input)
   Kd = Eigen::DiagonalMatrix<double, 6>();
 
   Kp.diagonal() << 100, 200, 200, 300, 300, 3000;
-  Kd.diagonal() << 654, 780, 730, 1000, 1700, 13000;
+  Kd.diagonal() << 50, 50, 50, 50, 50, 50;
 }
 
 template <typename Derived>

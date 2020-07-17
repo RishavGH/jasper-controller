@@ -158,7 +158,7 @@ void Starter::PublishJointPoints(int iteration_step)
   // jointVel = matrixToStdVector(jointVels.col(iteration_step));
   // jointAccel = matrixToStdVector(jointAccels.col(iteration_step));
 
-  jointPose = { 0.1, 0, 0, 0, 0, 0 };
+  jointPose = { 0, 0.1, 0, 0, 0, 0 };
   jointVel = { 0, 0, 0, 0, 0, 0 };
   jointAccel = { 0, 0, 0, 0, 0, 0 };
 
