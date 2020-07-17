@@ -161,8 +161,8 @@ void InverseDynamics::InitDynamics()
 
   Ic[7] << Ic7x, Ic7xy, Ic7xz, Ic7xy, Ic7y, Ic7zy, Ic7xz, Ic7zy, Ic7z;
 
-  // g = 9.81;
-  g = 0.0;
+  g = 9.81;
+  // g = 0.0;
 
   vdot.block<3, 1>(0, 0) << 0, 0, g;
 }
