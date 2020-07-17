@@ -1,0 +1,4 @@
+float64[] eePos # Position of the end effector
+float64[] lastPose  # Previous joint angles of the robot
+---
+float64[] jointAngles  # Calculated joint angles

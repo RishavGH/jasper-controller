@@ -1,0 +1,3 @@
+float64[] jointAngles # Joint angles
+---
+float64[] eePos   # Position of the end effector w.r.t. robot base

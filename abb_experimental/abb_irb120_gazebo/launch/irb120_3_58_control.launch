@@ -1,0 +1,16 @@
+<launch>
+
+  <!-- load the joint state controller -->
+  <rosparam file="$(find abb_irb120_gazebo)/config/joint_state_controller.yaml" command="load" />
+  <node name="joint_state_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_state_controller" />
+
+  <!-- load the arm controller -->
+  <rosparam file="$(find abb_irb120_gazebo)/config/irb120_3_58_arm_controller.yaml" command="load" />
+  <node name="abb_irb120_controller_spawner1" pkg="controller_manager" type="controller_manager" args="spawn joint1_controller" />
+  <node name="abb_irb120_controller_spawner2" pkg="controller_manager" type="controller_manager" args="spawn joint2_controller" />
+  <node name="abb_irb120_controller_spawner3" pkg="controller_manager" type="controller_manager" args="spawn joint3_controller" />
+  <node name="abb_irb120_controller_spawner4" pkg="controller_manager" type="controller_manager" args="spawn joint4_controller" />
+  <node name="abb_irb120_controller_spawner5" pkg="controller_manager" type="controller_manager" args="spawn joint5_controller" />
+  <node name="abb_irb120_controller_spawner6" pkg="controller_manager" type="controller_manager" args="spawn joint6_controller" />
+  
+</launch>
