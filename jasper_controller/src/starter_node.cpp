@@ -154,13 +154,13 @@ void Starter::PublishJointPoints(int iteration_step)
   // std::cout << "Joint Vel : " << jointVels.col(iteration_step) << std::endl;
   // std::cout << "Joint Acc : " << jointAccels.col(iteration_step) << std::endl;
 
-  // jointPose = matrixToStdVector(trajectory.col(iteration_step));
-  // jointVel = matrixToStdVector(jointVels.col(iteration_step));
-  // jointAccel = matrixToStdVector(jointAccels.col(iteration_step));
+  jointPose = matrixToStdVector(trajectory.col(iteration_step));
+  jointVel = matrixToStdVector(jointVels.col(iteration_step));
+  jointAccel = matrixToStdVector(jointAccels.col(iteration_step));
 
-  jointPose = { 0.3, 0, 0, 0, 0, 0 };
-  jointVel = { 0, 0, 0, 0, 0, 0 };
-  jointAccel = { 0, 0, 0, 0, 0, 0 };
+  // jointPose = { 0.3, 0, 0, 0, 0, 0 };
+  // jointVel = { 0, 0, 0, 0, 0, 0 };
+  // jointAccel = { 0, 0, 0, 0, 0, 0 };
 
   jasper_msgs::JointInfo msg;
   msg.jointAngles = jointPose;
