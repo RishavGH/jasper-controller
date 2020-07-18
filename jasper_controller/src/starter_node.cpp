@@ -201,6 +201,9 @@ int main(int argc, char** argv)
     std::cout << "Cannot unpause physics" << std::endl;
   }
 
+  std::cout << "Press enter to enable physics and start simulation : ";
+  std::cin.get();
+
   std_srvs::Empty empty_req;
 
   unpausePhysics.call(empty_req);
