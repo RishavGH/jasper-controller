@@ -147,8 +147,8 @@ void Starter::PublishJointPoints(int iteration_step)
   std::vector<double> jointAccel;
 
   // To facilitate infinite iteration
-  if (iteration_step > 700)
-    iteration_step = 700;
+  if (iteration_step > 698)
+    iteration_step = 698;
 
   // std::cout << "Joint Pose : " << trajectory.col(iteration_step) << std::endl;
   // std::cout << "Joint Vel : " << jointVels.col(iteration_step) << std::endl;
@@ -215,13 +215,16 @@ int main(int argc, char** argv)
   // std::cout << "Press enter to begin...";
   // std::cin.get();
 
-  for (int i = 0;; ++i)
+  int i = 0;
+
+  while (ros::ok())
   {
     starter.PublishJointPoints(i);
 
     ros::spinOnce();
 
     rate.sleep();
+    ++i;
   }
 
   return 0;
