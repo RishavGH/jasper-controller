@@ -225,6 +225,13 @@ include_directories(
 
  target_link_libraries(${PROJECT_NAME}_feedback_node ${catkin_LIBRARIES} ${GAZEBO_LIBRARY_DIRS})
 
+ catkin_install_python(
+   PROGRAMS
+   scripts/error_plotter.py
+   DESTINATION
+   ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
+
 #############
 ## Install ##
 #############
