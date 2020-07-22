@@ -147,8 +147,7 @@ void Starter::PublishJointPoints(int iteration_step)
   std::vector<double> jointAccel;
 
   // To facilitate infinite iteration
-  if (iteration_step > 698)
-    iteration_step = 698;
+  iteration_step = iteration_step > 698 ? 698: ;
 
   // std::cout << "Joint Pose : " << trajectory.col(iteration_step) << std::endl;
   // std::cout << "Joint Vel : " << jointVels.col(iteration_step) << std::endl;
@@ -201,6 +200,8 @@ int main(int argc, char** argv)
     std::cout << "Cannot unpause physics" << std::endl;
   }
 
+  ros::Rate rate(100);
+
   std::cout << "Press enter to enable physics and start simulation : ";
   std::cin.get();
 
@@ -209,8 +210,6 @@ int main(int argc, char** argv)
   unpausePhysics.call(empty_req);
 
   std::cout << "Physics unpaused!" << std::endl;
-
-  ros::Rate rate(100);
 
   // std::cout << "Press enter to begin...";
   // std::cin.get();
