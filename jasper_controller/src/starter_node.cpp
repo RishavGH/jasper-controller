@@ -6,12 +6,21 @@
 #define EIGEN_STACK_ALLOCATION_LIMIT 0
 
 #include <cmath>
+#include <csignal>
 #include <iostream>
 
 #include "jasper_controller/starter.h"
 #include "jasper_msgs/IKService.h"
 #include "jasper_msgs/JointInfo.h"
 #include "std_srvs/Empty.h"
+
+// To signal shutdown
+sig_atomic_t volatile shutdown_key = 0;
+
+void starter_sigint_handler(int signum)
+{
+  shutdown_key = 1;
+}
 
 Starter::Starter(const ros::Publisher& starter_pub) : pub(starter_pub)
 {
@@ -147,7 +156,7 @@ void Starter::PublishJointPoints(int iteration_step)
   std::vector<double> jointAccel;
 
   // To facilitate infinite iteration
-  iteration_step = iteration_step > 698 ? 698: ;
+  iteration_step = iteration_step > 698 ? 698 : iteration_step;
 
   // std::cout << "Joint Pose : " << trajectory.col(iteration_step) << std::endl;
   // std::cout << "Joint Vel : " << jointVels.col(iteration_step) << std::endl;
@@ -172,9 +181,12 @@ void Starter::PublishJointPoints(int iteration_step)
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "starter_node");
+  ros::init(argc, argv, "starter_node", ros::init_options::NoSigintHandler);
 
   ros::NodeHandle nh;
+
+  // Registering SIGINT handler
+  signal(SIGINT, starter_sigint_handler);
 
   ros::Publisher pub = nh.advertise<jasper_msgs::JointInfo>("joint_input", 10);
 
@@ -190,6 +202,15 @@ int main(int argc, char** argv)
   Starter starter(pub);
   starter.InitJointPoints(client);
   starter.cubicpolytraj();
+
+  // To pause physics
+  ros::ServiceClient pausePhysics = nh.serviceClient<std_srvs::Empty>("/gazebo/pause_physics");
+
+  if (!pausePhysics.waitForExistence(ros::Duration(timeout)))
+  {
+    ROS_ERROR("Call to \"%s\" service timed out [%f sec].", pausePhysics.getService().c_str(), timeout);
+    std::cout << "Cannot pause physics" << std::endl;
+  }
 
   // To unpause physics
   ros::ServiceClient unpausePhysics = nh.serviceClient<std_srvs::Empty>("/gazebo/unpause_physics");
@@ -216,7 +237,7 @@ int main(int argc, char** argv)
 
   int i = 0;
 
-  while (ros::ok())
+  while (!shutdown_key)
   {
     starter.PublishJointPoints(i);
 
@@ -225,6 +246,11 @@ int main(int argc, char** argv)
     rate.sleep();
     ++i;
   }
+
+  // To pause physics when shutting down
+  pausePhysics.call(empty_req);
+
+  ros::shutdown();
 
   return 0;
 }

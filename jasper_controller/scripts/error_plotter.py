@@ -59,15 +59,24 @@ class error_plotter:
         self.time_axis.append(self.iterations)
         self.des_error.append(0)
 
+    # def init_shutdown(self):
+    #    while not rospy.is_shutdown():
+    #        if self.iterations == 3:
+    #            rospy.signal_shutdown('Limit Reached.')
+
 
 def receive_error():
-    rospy.init_node('error_plotter')
+    rospy.init_node('error_plotter', disable_signals=True)
 
     plotter_obj = error_plotter()
 
     rospy.Subscriber('joint_error', JointInfo, plotter_obj.PlotterCallback)
 
     rospy.on_shutdown(plotter_obj.plot_errors)
+
+    #thread = threading.Thread(target=plotter_obj.init_shutdown)
+
+    # thread.start()
 
     rospy.spin()
 

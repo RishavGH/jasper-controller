@@ -1,0 +1,18 @@
+<launch>
+    <include file="$(find jasper_controller)/launch/dh_param_set.launch"/>
+
+    <node pkg="kinematics" type="inverse_kinematics_server" name="inverse_kinematics_server"/>
+
+    <node pkg="jasper_controller" type="starter_node" name="starter_node" output="screen"/>
+
+    <node pkg="jasper_controller" type="pid_junction_node" name="pid_junction_node"/>
+
+    <node pkg="jasper_controller" type="inverse_dynamics_node" name="inverse_dynamics_node"/>
+
+    <node pkg="jasper_controller" type="torque_middleman_node" name="torque_middleman_node"/>
+
+    <node pkg="jasper_controller" type="feedback_node" name="feedback_node"/>
+
+    <node pkg="jasper_controller" type="error_plotter.py" name="error_plotter"/>
+    
+</launch>
