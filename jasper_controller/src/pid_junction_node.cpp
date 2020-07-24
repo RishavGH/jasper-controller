@@ -7,13 +7,14 @@
 #include "message_filters/synchronizer.h"
 #include "ros/ros.h"
 
-PID_Junction::PID_Junction(const ros::Publisher& pub_input) : pub(pub_input)
+PID_Junction::PID_Junction(const ros::Publisher& pub_input, const ros::Publisher& pub_second)
+  : pub(pub_input), err_pub(pub_second)
 {
   Kp = Eigen::DiagonalMatrix<double, 6>();
   Kd = Eigen::DiagonalMatrix<double, 6>();
 
-  Kp.diagonal() << 100, 200, 200, 300, 800, 3000;
-  Kd.diagonal() << 50, 50, 50, 50, 20, 50;
+  Kp.diagonal() << 100, 200, 500, 1200, 3300, 140000;
+  Kd.diagonal() << 50, 50, 50, 70, 90, 80;
 }
 
 template <typename Derived>
@@ -42,8 +43,12 @@ void PID_Junction::pidCallback(const jasper_msgs::JointInfo::ConstPtr& command_m
   DetermineCompensation(joint_err, vel_err, acc);
 
   jasper_msgs::DynamicsInput dyn_msg;
+  jasper_msgs::JointInfo joint_err_msg;
 
-  std::cout << jointVelCompensation << std::endl;
+  joint_err_msg.jointAngles = matrixToStdVector(joint_err);
+  joint_err_msg.header.stamp = ros::Time::now();
+
+  err_pub.publish(joint_err_msg);
 
   dyn_msg.jointAngles = feedback_msg->jointAngles;
   dyn_msg.jointVelocities = feedback_msg->jointVelocities;
@@ -80,8 +85,10 @@ int main(int argc, char** argv)
   ros::NodeHandle nh;
 
   ros::Publisher pub = nh.advertise<jasper_msgs::DynamicsInput>("pid_command", 10);
+  ros::Publisher error_pub =
+      nh.advertise<jasper_msgs::JointInfo>("joint_error", 10);  // To tune the PID by plotting the error
 
-  PID_Junction pid(pub);
+  PID_Junction pid(pub, error_pub);
 
   std::cout << "PID Init" << std::endl;
 

@@ -9,6 +9,7 @@ class PID_Junction
 {
 private:
   ros::Publisher pub;
+  ros::Publisher err_pub;                            // To publish joint error
   Eigen::Matrix<double, 6, 1> jointPosCompensation;  // To store the outputs of the PID calculation
   Eigen::Matrix<double, 6, 1> jointVelCompensation;
   Eigen::Matrix<double, 6, 1> jointAccCompensation;
@@ -23,7 +24,7 @@ private:
   std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat);
 
 public:
-  PID_Junction(const ros::Publisher& pub_input);
+  PID_Junction(const ros::Publisher& pub_input, const ros::Publisher& pub_second);
   void pidCallback(const jasper_msgs::JointInfo::ConstPtr& command_msg,
                    const jasper_msgs::JointInfo::ConstPtr& feedback_msg);
 };
