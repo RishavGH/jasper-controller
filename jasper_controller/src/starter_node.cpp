@@ -147,7 +147,7 @@ void Starter::PublishJointPoints(int iteration_step)
   std::vector<double> jointAccel;
 
   // To facilitate infinite iteration
-  iteration_step = iteration_step > 698 ? 698: ;
+  iteration_step = iteration_step > 698 ? 698: iteration_step;
 
   // std::cout << "Joint Pose : " << trajectory.col(iteration_step) << std::endl;
   // std::cout << "Joint Vel : " << jointVels.col(iteration_step) << std::endl;
