@@ -7,5 +7,5 @@ controller has been implemented to facilitate that.
 
 ## Known issues
 1. "Could not load controller ... effort_controllers/JointEffortController' does not exist."
-	Run 'sudo apt install ros-<version>-ros-control ros-<version>-ros-controllers'
-	Replace <version> with the version of ros currently being run.
+	Run '''sudo apt install ros-<version>-ros-control ros-<version>-ros-controllers'''
+	Replace '''<version>''' with the version of ros currently being run.
