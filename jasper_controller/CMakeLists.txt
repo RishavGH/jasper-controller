@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_filters
   roslaunch
   std_srvs
+  roslib
 )
 
 roslaunch_add_file_check(launch)
@@ -115,7 +116,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES jasper_controller
-  CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs jasper_msgs std_srvs
+  CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs jasper_msgs std_srvs roslib
 #  DEPENDS system_lib
 )
 

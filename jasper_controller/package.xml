@@ -63,6 +63,7 @@
   <depend>eigen</depend>
   <depend>roslaunch</depend>
   <depend>std_srvs</depend>
+  <depend>roslib</depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
