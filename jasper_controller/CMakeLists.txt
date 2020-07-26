@@ -191,7 +191,7 @@ include_directories(
  target_link_libraries(${PROJECT_NAME}_starter_node  Eigen3::Eigen ${catkin_LIBRARIES} ${GAZEBO_LIBRARY_DIRS})
 
  
- add_executable(${PROJECT_NAME}_pid_junction_node src/pid_junction_node.cpp)
+ add_executable(${PROJECT_NAME}_pid_junction_node src/pid_junction_node.cpp src/robot.cpp)
 
  set_target_properties(${PROJECT_NAME}_pid_junction_node  PROPERTIES OUTPUT_NAME pid_junction_node PREFIX "")
 

@@ -2,10 +2,11 @@
 #include <Eigen/Dense>
 #include <vector>
 
+#include "jasper_controller/robot.h"
 #include "jasper_msgs/JointInfo.h"
 #include "ros/ros.h"
 
-class PID_Junction
+class PID_Junction : private Robot
 {
 private:
   ros::Publisher pub;
@@ -20,8 +21,8 @@ private:
   template <typename Derived>
   void DetermineCompensation(const Eigen::MatrixBase<Derived>& joint_err, const Eigen::MatrixBase<Derived>& vel_err,
                              const Eigen::MatrixBase<Derived>& acc);
-  Eigen::Matrix<double, 6, 1> stdVectorToMatrix(const std::vector<double>& vec);
-  std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat);
+  /*Eigen::Matrix<double, 6, 1> stdVectorToMatrix(const std::vector<double>& vec);
+  std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat);*/
 
 public:
   PID_Junction(const ros::Publisher& pub_input, const ros::Publisher& pub_second);
