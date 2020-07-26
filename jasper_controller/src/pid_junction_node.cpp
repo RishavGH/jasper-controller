@@ -86,27 +86,6 @@ void PID_Junction::pidCallback(const jasper_msgs::JointInfo::ConstPtr& command_m
   pub.publish(dyn_msg);
 }
 
-/*Eigen::Matrix<double, 6, 1> PID_Junction::stdVectorToMatrix(const std::vector<double>& vec)
-{
-  const int cols = vec.size();
-  Eigen::Matrix<double, 6, 1> result;
-
-  for (int i = 0; i < vec.size(); ++i)
-    result(i) = vec[i];
-
-  return result;
-}
-
-std::vector<double> PID_Junction::matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat)
-{
-  std::vector<double> result;
-
-  for (int i = 0; i < mat.rows(); ++i)
-    result.push_back(mat(i));
-
-  return result;
-}*/
-
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "pid_junction_node");

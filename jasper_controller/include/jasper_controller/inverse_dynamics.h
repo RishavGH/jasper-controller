@@ -6,11 +6,12 @@
 #include <map>
 #include <vector>
 
+#include "jasper_controller/robot.h"
 #include "jasper_msgs/DynamicsInput.h"
 #include "jasper_msgs/DynamicsOutput.h"
 #include "ros/ros.h"
 
-class InverseDynamics
+class InverseDynamics : Robot
 {
 private:
   double dh_a2_, dh_a3_, dh_d4_, dh_d1_, dh_a6_, dh_dT_;  // DH Parameters
@@ -47,8 +48,8 @@ private:
   std::vector<double> CalcDynamics(const Eigen::MatrixBase<Derived>& q, const Eigen::MatrixBase<Derived>& qdot,
                                    const Eigen::MatrixBase<Derived>& qddot);  // calculates the dynamics
 
-  Eigen::Matrix<double, 6, 1> stdVectorToMatrix(const std::vector<double>&);  // Converts STL vector to Eigen Matrix
-  std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>&);  // Converts Eigen Matrix to STL Vector
+  /*Eigen::Matrix<double, 6, 1> stdVectorToMatrix(const std::vector<double>&);  // Converts STL vector to Eigen Matrix
+  std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>&);*/  // Converts Eigen Matrix to STL Vector
 
 public:
   InverseDynamics(const ros::NodeHandle& nh, const ros::Publisher& pub);          // Constructor

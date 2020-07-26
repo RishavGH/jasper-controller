@@ -211,7 +211,7 @@ void InverseDynamics::InitKinematics(const Eigen::MatrixBase<Derived>& q)
   P[7] << dh_a6_, 0, dh_dT_;
 }
 
-Eigen::Matrix<double, 6, 1> InverseDynamics::stdVectorToMatrix(const std::vector<double>& vec)
+/*Eigen::Matrix<double, 6, 1> InverseDynamics::stdVectorToMatrix(const std::vector<double>& vec)
 {
   const int cols = vec.size();
   Eigen::Matrix<double, 6, 1> result;
@@ -231,7 +231,7 @@ std::vector<double> InverseDynamics::matrixToStdVector(const Eigen::Matrix<doubl
     result.push_back(mat(i));
 
   return result;
-}
+}*/
 
 template <typename Derived>
 std::vector<double> InverseDynamics::CalcDynamics(const Eigen::MatrixBase<Derived>& q,

@@ -86,7 +86,7 @@ void Starter::InitJointPoints(ros::ServiceClient& client)
   wpVels.col(6) = Eigen::Matrix<double, 6, 1>::Zero();
 }
 
-Eigen::Matrix<double, 6, 1> Starter::stdVectorToMatrix(const std::vector<double>& vec)
+/*Eigen::Matrix<double, 6, 1> Starter::stdVectorToMatrix(const std::vector<double>& vec)
 {
   const int cols = vec.size();
   Eigen::Matrix<double, 6, 1> result;
@@ -105,7 +105,7 @@ std::vector<double> Starter::matrixToStdVector(const Eigen::Matrix<double, 6, 1>
     result.push_back(mat(i));
 
   return result;
-}
+}*/
 
 void Starter::cubicpolytraj()
 {
