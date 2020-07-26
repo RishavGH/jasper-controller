@@ -23,9 +23,6 @@ private:
 
   ros::Publisher pub;
 
-  /*Eigen::Matrix<double, 6, 1> stdVectorToMatrix(const std::vector<double>& vec);
-  std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat);*/
-
 public:
   Starter(const ros::Publisher& starter_pub);
 

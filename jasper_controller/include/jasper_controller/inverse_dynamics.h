@@ -14,8 +14,7 @@
 class InverseDynamics : Robot
 {
 private:
-  double dh_a2_, dh_a3_, dh_d4_, dh_d1_, dh_a6_, dh_dT_;  // DH Parameters
-  double g;                                               // Acceleration due to gravity
+  double g;  // Acceleration due to gravity
 
   Eigen::Matrix<double, 1, 8> mass;               // List of link masses
   Eigen::Matrix<double, 3, 8> Pc;                 // Positions of link Centers of mass
@@ -42,14 +41,10 @@ private:
                                                              // matrices
   void InitDynamics();  // Initializes dynamics by populating mass,positions of ceters of mass, and moments of inertia
                         // values
-  void InitDHParam(const ros::NodeHandle& nh);  // Initializes DH parameters
 
   template <typename Derived>
   std::vector<double> CalcDynamics(const Eigen::MatrixBase<Derived>& q, const Eigen::MatrixBase<Derived>& qdot,
                                    const Eigen::MatrixBase<Derived>& qddot);  // calculates the dynamics
-
-  /*Eigen::Matrix<double, 6, 1> stdVectorToMatrix(const std::vector<double>&);  // Converts STL vector to Eigen Matrix
-  std::vector<double> matrixToStdVector(const Eigen::Matrix<double, 6, 1>&);*/  // Converts Eigen Matrix to STL Vector
 
 public:
   InverseDynamics(const ros::NodeHandle& nh, const ros::Publisher& pub);          // Constructor

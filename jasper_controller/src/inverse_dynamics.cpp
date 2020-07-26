@@ -15,22 +15,9 @@ InverseDynamics::InverseDynamics(const ros::NodeHandle& nh, const ros::Publisher
   , F(Eigen::Matrix<double, 3, 8>::Zero())
   , N(Eigen::Matrix<double, 3, 8>::Zero())
   , inv_dyn_pub(pub)
+  , Robot(nh)
 {
-  InitDHParam(nh);
-
   InitDynamics();
-
-  // inv_dyn_pub = pub;
-}
-
-void InverseDynamics::InitDHParam(const ros::NodeHandle& nh)
-{
-  nh.getParam("dh_a2", dh_a2_);
-  nh.getParam("dh_a3", dh_a3_);
-  nh.getParam("dh_d1", dh_d1_);
-  nh.getParam("dh_d4", dh_d4_);
-  nh.getParam("dh_a6", dh_a6_);
-  nh.getParam("dh_dT", dh_dT_);
 }
 
 void InverseDynamics::InitDynamics()
@@ -211,28 +198,6 @@ void InverseDynamics::InitKinematics(const Eigen::MatrixBase<Derived>& q)
   P[7] << dh_a6_, 0, dh_dT_;
 }
 
-/*Eigen::Matrix<double, 6, 1> InverseDynamics::stdVectorToMatrix(const std::vector<double>& vec)
-{
-  const int cols = vec.size();
-  Eigen::Matrix<double, 6, 1> result;
-
-  for (int i = 0; i < vec.size(); ++i)
-    result(i) = vec[i];
-
-  return result;
-}
-
-// Convert from Eigen Vector (1D Matrix) to C++ STL vector
-std::vector<double> InverseDynamics::matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat)
-{
-  std::vector<double> result;
-
-  for (int i = 0; i < mat.rows(); ++i)
-    result.push_back(mat(i));
-
-  return result;
-}*/
-
 template <typename Derived>
 std::vector<double> InverseDynamics::CalcDynamics(const Eigen::MatrixBase<Derived>& q,
                                                   const Eigen::MatrixBase<Derived>& qdot,
@@ -319,7 +284,7 @@ void InverseDynamics::InverseDynamicsCallback(const jasper_msgs::DynamicsInput::
     log_output += " ";
   }
 
-  ROS_INFO("%s", log_output.c_str());
+  // ROS_INFO("%s", log_output.c_str());
 
   inv_dyn_pub.publish(response);
 }

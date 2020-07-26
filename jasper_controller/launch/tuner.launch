@@ -7,7 +7,7 @@
 
     <node pkg="jasper_controller" type="pid_junction_node" name="pid_junction_node"/>
 
-    <node pkg="jasper_controller" type="inverse_dynamics_node" name="inverse_dynamics_node"/>
+    <node pkg="jasper_controller" type="inverse_dynamics_node" name="inverse_dynamics_node" output="screen"/>
 
     <node pkg="jasper_controller" type="torque_middleman_node" name="torque_middleman_node"/>
 

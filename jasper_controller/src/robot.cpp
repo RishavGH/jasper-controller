@@ -20,3 +20,17 @@ Eigen::Matrix<double, 6, 1> Robot::stdVectorToMatrix(const std::vector<double>& 
 
   return result;
 }
+
+Robot::Robot()
+{
+}
+
+Robot::Robot(const ros::NodeHandle& nh)
+{
+  nh.getParam("dh_a2", dh_a2_);
+  nh.getParam("dh_a3", dh_a3_);
+  nh.getParam("dh_d1", dh_d1_);
+  nh.getParam("dh_d4", dh_d4_);
+  nh.getParam("dh_a6", dh_a6_);
+  nh.getParam("dh_dT", dh_dT_);
+}
