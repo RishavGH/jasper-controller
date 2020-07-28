@@ -168,7 +168,6 @@ int main(int argc, char** argv)
   signal(SIGINT, starter_sigint_handler);
 
   ros::Publisher pub = nh.advertise<jasper_msgs::JointInfo>("joint_input", 10);
-
   ros::ServiceClient client = nh.serviceClient<jasper_msgs::IKService>("inverse_kinematics_service");
 
   float timeout = 5.0f;
