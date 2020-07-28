@@ -4,7 +4,7 @@
 #include <Eigen/Geometry>
 #include <vector>
 
-#include "jasper_controller/robot.h"
+#include "jasper_controller/robot.hpp"
 #include "ros/ros.h"
 
 class Starter : private Robot
@@ -26,7 +26,7 @@ private:
 public:
   Starter(const ros::Publisher& starter_pub);
 
-  void cubicpolytraj();
+  void createTraj();
   void InitJointPoints(ros::ServiceClient& client);
   void PublishJointPoints(int iteration_step);
 };

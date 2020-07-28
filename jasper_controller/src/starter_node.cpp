@@ -86,46 +86,12 @@ void Starter::InitJointPoints(ros::ServiceClient& client)
   wpVels.col(6) = Eigen::Matrix<double, 6, 1>::Zero();
 }
 
-void Starter::cubicpolytraj()
+void Starter::createTraj()
 {
   Eigen::Matrix<double, 1, 700> timeSamples;
   timeSamples = Eigen::Matrix<double, 1, 700>::LinSpaced(700, 0, 7);
 
-  // To solve for polynomial coefficients using the matrix method
-  Eigen::Matrix4d variable_power_matrix;
-  Eigen::Matrix<double, 4, 6> right_hand_side;
-  Eigen::Matrix<double, 4, 6> coeff_matrix;
-  Eigen::Matrix<double, 3, 4> result_matrix;  // Matrix of time powers for calculating the final results
-  Eigen::Matrix<double, 3, 6> traj_matrix;
-
-  for (int i = 0, j = 0; i < timepoints.cols() - 1; ++i)
-  {
-    // For calculating the coefficients
-    variable_power_matrix << pow(timepoints(i), 3), pow(timepoints(i), 2), pow(timepoints(i), 1), 1,
-        pow(timepoints(i + 1), 3), pow(timepoints(i + 1), 2), pow(timepoints(i + 1), 1), 1, 3 * pow(timepoints(i), 2),
-        2 * pow(timepoints(i), 1), 1, 0, 3 * pow(timepoints(i + 1), 2), 2 * pow(timepoints(i + 1), 1), 1, 0;
-
-    right_hand_side.row(0) = jointpoints.col(i).transpose();
-    right_hand_side.row(1) = jointpoints.col(i + 1).transpose();
-    right_hand_side.row(2) = wpVels.col(i).transpose();
-    right_hand_side.row(3) = wpVels.col(i + 1).transpose();
-
-    coeff_matrix = variable_power_matrix.inverse() * right_hand_side;
-
-    // Calculating the trajectory, vel and acceleration
-
-    for (; timeSamples(j) < timepoints(i + 1); ++j)
-    {
-      result_matrix << pow(timeSamples(j), 3), pow(timeSamples(j), 2), pow(timeSamples(j), 1), 1,
-          3 * pow(timeSamples(j), 2), 2 * pow(timeSamples(j), 1), 1, 0, 6 * timeSamples(j), 2, 0, 0;
-
-      traj_matrix = result_matrix * coeff_matrix;
-
-      trajectory.col(j) = traj_matrix.row(0).transpose();
-      jointVels.col(j) = traj_matrix.row(1).transpose();
-      jointAccels.col(j) = traj_matrix.row(2).transpose();
-    }
-  }
+  cubicpolytraj(jointpoints, wpVels, timepoints, timeSamples, trajectory, jointVels, jointAccels);
 }
 
 void Starter::PublishJointPoints(int iteration_step)
@@ -179,7 +145,8 @@ int main(int argc, char** argv)
 
   Starter starter(pub);
   starter.InitJointPoints(client);
-  starter.cubicpolytraj();
+  // starter.cubicpolytraj();
+  starter.createTraj();
 
   // To pause physics
   ros::ServiceClient pausePhysics = nh.serviceClient<std_srvs::Empty>("/gazebo/pause_physics");

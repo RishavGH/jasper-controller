@@ -2,7 +2,7 @@
 #include <Eigen/Dense>
 #include <vector>
 
-#include "jasper_controller/robot.h"
+#include "jasper_controller/robot.hpp"
 #include "jasper_msgs/JointInfo.h"
 #include "ros/ros.h"
 

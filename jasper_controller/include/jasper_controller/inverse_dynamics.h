@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-#include "jasper_controller/robot.h"
+#include "jasper_controller/robot.hpp"
 #include "jasper_msgs/DynamicsInput.h"
 #include "jasper_msgs/DynamicsOutput.h"
 #include "ros/ros.h"
