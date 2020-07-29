@@ -72,12 +72,15 @@ void PID_Junction::pidCallback(const jasper_msgs::JointInfo::ConstPtr& command_m
   DetermineCompensation(joint_err, vel_err, acc);
 
   jasper_msgs::DynamicsInput dyn_msg;
+
+  // For plotting*****************
   jasper_msgs::JointInfo joint_err_msg;
 
   joint_err_msg.jointAngles = matrixToStdVector(joint_err);
   joint_err_msg.header.stamp = ros::Time::now();
 
   err_pub.publish(joint_err_msg);
+  // Plotting ends*****************
 
   dyn_msg.jointAngles = feedback_msg->jointAngles;
   dyn_msg.jointVelocities = feedback_msg->jointVelocities;
@@ -92,7 +95,7 @@ int main(int argc, char** argv)
 
   ros::NodeHandle nh;
 
-  ros::Publisher pub = nh.advertise<jasper_msgs::DynamicsInput>("pid_command", 10);
+  ros::Publisher pub = nh.advertise<jasper_msgs::JointInfo>("pid_command", 10);
   ros::Publisher error_pub =
       nh.advertise<jasper_msgs::JointInfo>("joint_error", 10);  // To tune the PID by plotting the error
 

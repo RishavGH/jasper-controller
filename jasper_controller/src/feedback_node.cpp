@@ -8,10 +8,10 @@ Feedback::Feedback(const ros::Publisher& input_pub) : pub(input_pub)
 {
 }
 
-void Feedback::JointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
+void Feedback::JointStateCallback(const jasper_msgs::JointInfo::ConstPtr& msg)
 {
-  std::vector<double> jointStates = msg->position;
-  std::vector<double> jointVel = msg->velocity;
+  std::vector<double> jointStates = msg->jointAngles;
+  std::vector<double> jointVel = msg->jointVelocities;
 
   jasper_msgs::JointInfo outgoing_msg;
 
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 
   Feedback feedback(pub);
 
-  ros::Subscriber sub = nh.subscribe("joint_states", 10, &Feedback::JointStateCallback, &feedback);
+  ros::Subscriber sub = nh.subscribe("op_feedback", 10, &Feedback::JointStateCallback, &feedback);
 
   ros::spin();
 

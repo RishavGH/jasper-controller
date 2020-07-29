@@ -299,7 +299,8 @@ int main(int argc, char** argv)
 
   InverseDynamics inverseDynamics(nh, pub);
 
-  ros::Subscriber sub = nh.subscribe("pid_command", 10, &InverseDynamics::InverseDynamicsCallback, &inverseDynamics);
+  ros::Subscriber sub =
+      nh.subscribe("resolved_command", 10, &InverseDynamics::InverseDynamicsCallback, &inverseDynamics);
 
   ros::spin();
 

@@ -1,3 +1,4 @@
+#include "jasper_msgs/JointInfo.h"
 #include "ros/ros.h"
 #include "sensor_msgs/JointState.h"
 
@@ -8,5 +9,5 @@ private:
 
 public:
   Feedback(const ros::Publisher& input_pub);
-  void JointStateCallback(const sensor_msgs::JointState::ConstPtr& msg);
+  void JointStateCallback(const jasper_msgs::JointInfo::ConstPtr& msg);
 };

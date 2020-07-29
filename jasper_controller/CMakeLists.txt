@@ -226,6 +226,15 @@ include_directories(
 
  target_link_libraries(${PROJECT_NAME}_feedback_node ${catkin_LIBRARIES} ${GAZEBO_LIBRARY_DIRS})
 
+
+ add_executable(${PROJECT_NAME}_analytic_jacobian_node src/analytic_jacobian.cpp)
+
+ set_target_properties(${PROJECT_NAME}_analytic_jacobian_node PROPERTIES OUTPUT_NAME analytic_jacobian_node PREFIX "")
+
+ add_dependencies(${PROJECT_NAME}_analytic_jacobian_node  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+ target_link_libraries(${PROJECT_NAME}_analytic_jacobian_node ${catkin_LIBRARIES} ${GAZEBO_LIBRARY_DIRS})
+
  catkin_install_python(
    PROGRAMS
    scripts/error_plotter.py
