@@ -32,7 +32,8 @@ void AnalyticJacobian::ForwardCallback(const sensor_msgs::JointState::ConstPtr& 
   std::vector<double> result = calcAJacobian(jointAngles, jointVels);
 
   jasper_msgs::JointInfo back_msg;
-  back_msg.jointAngles = feedPos;
+  // back_msg.jointAngles = feedPos;
+  back_msg.jointAngles = { 0, 0, 0, 0, 0, 0 };
   back_msg.jointVelocities = result;
 
   back_msg.header.stamp = ros::Time::now();
