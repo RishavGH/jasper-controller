@@ -31,9 +31,10 @@ protected:
 std::vector<double> Robot::matrixToStdVector(const Eigen::Matrix<double, 6, 1>& mat)
 {
   std::vector<double> result;
+  result.reserve(6);
 
   for (int i = 0; i < mat.rows(); ++i)
-    result.push_back(mat(i));
+    result.emplace_back(mat(i));
 
   return result;
 }
