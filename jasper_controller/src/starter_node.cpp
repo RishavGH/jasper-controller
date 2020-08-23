@@ -24,7 +24,8 @@ void starter_sigint_handler(int signum)
 
 Starter::Starter(const ros::Publisher& starter_pub) : pub(starter_pub)
 {
-  base2bowl << 0.6, 0.2, 0.003, 0, 0, 0;
+  // base2bowl << 0.6, 0.2, 0.003, 0, 0, 0;
+  base2bowl << 0.5, 0.0, 0.003, 0, 0, 0;
   base2mouth << 0.6, 0.36, 0.35, 0, 0, 0;
 
   waypoints.block<6, 1>(0, 0) << 0.5089, 0, 0.584, 0, 2.0071, -0.7854;
