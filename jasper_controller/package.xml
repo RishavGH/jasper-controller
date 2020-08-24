@@ -58,6 +58,7 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
   <depend>sensor_msgs</depend>
   <depend>jasper_msgs</depend>
   <depend>eigen</depend>
@@ -69,6 +70,6 @@
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->
-
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
   </export>
 </package>
